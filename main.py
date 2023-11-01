@@ -29,7 +29,7 @@ memory = ConversationBufferMemory(
 )
 if len(msgs.messages) == 0 or st.sidebar.button("Reset chat history"):
     msgs.clear()
-    msgs.add_ai_message("How can I help you defeat the Satanic globalist today?")
+    msgs.add_ai_message("How can I help you defeat the Satanic New World Order today?")
     st.session_state.steps = {}
 
 avatars = {"human": "user", "ai": "assistant"}
@@ -44,7 +44,7 @@ for idx, msg in enumerate(msgs.messages):
                 st.write(step[1])
         st.write(msg.content)
 
-if prompt := st.chat_input(placeholder="Who is Jeffery Epstein?"):
+if prompt := st.chat_input(placeholder="Who was Jeffery Epstein?"):
     st.chat_message("user").write(prompt)
 
     if not openai_api_key:
