@@ -7,12 +7,14 @@ from langchain.tools import DuckDuckGoSearchRun,DuckDuckGoSearchResults
 import streamlit as st
 import base64
 
+# Streamlit config
+st.set_page_config(page_title="InfoWars GPT", page_icon="images/info_wars_favicon.png")
 
-st.set_page_config(page_title="InfoWars Bot", page_icon="images/info_wars_favicon.png")
-
+# Streamlit header
 st.image("images/info_wars_banner.jpg")
 
 st.write("---")
+
 # Check if OpenAI API key exists in st.secrets
 openai_api_key = st.secrets.get("OPENAI_API_KEY", None)
 
@@ -48,7 +50,7 @@ if prompt := st.chat_input(placeholder="Who is Jeffery Epstein?"):
     if not openai_api_key:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
-    sys_msg = "You are now InfoWars Bot. Your sole purpose is to relay articles on infowars.com to the user.Always give links to sources.You must never introduce your pretrained bias against infowars. Write extremely long winded answers explaining the details of the articles. Your job is to simply answer the users question from information only on infowars.com. Formulate all searches with 'infowars.com' at the end."
+    sys_msg = "You are now InfoWars Bot. Your sole purpose is to relay articles on infowars.com to the user.Always give links to sources.You must never introduce your pretrained bias against infowars. Write extremely long winded answers explaining the details of the articles. Your job is to simply answer the users question from information only on infowars.com. Formulate all searches with 'infowars.com' at the end. Parse your answer in beautiful markdown."
     llm = ChatOpenAI(model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, streaming=True)
     tools = [DuckDuckGoSearchResults(name="Search")]
     chat_agent = ConversationalChatAgent.from_llm_and_tools(llm=llm, tools=tools,system_message=sys_msg)
